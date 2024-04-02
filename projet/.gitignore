@@ -1,0 +1,17 @@
+# Fichiers et répertoires générés par Maven
+target/
+
+# Fichiers de verrouillage de Maven
+*.lock
+
+# Fichiers et répertoires générés par l'IDE
+.idea/
+*.iml
+*.iws
+.settings/
+.classpath
+.project
+
+# Journaux et fichiers de débogage
+*.log
+log/
