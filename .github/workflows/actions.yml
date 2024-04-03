@@ -2,10 +2,9 @@ name: actions
 
 run-name: test de compilation
 
+
 on:
-  push:
-    branches:
-      ignore: '**'  # ignore tous les push sur toutes les branches
+  workflow_dispatch:
   schedule:
     - cron: '0 0 * * *'  # exécute une fois par jour à minuit (UTC)
 jobs:
