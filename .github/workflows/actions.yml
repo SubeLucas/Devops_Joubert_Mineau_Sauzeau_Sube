@@ -9,8 +9,8 @@ jobs:
         uses: actions/setup-java@v3
         with:
           java-version: '21'
-          #distribution: 'adopt'
-          #cache: 'gradle'
+          distribution: 'adopt'
+          cache: 'gradle'
       - run: cd projet && mvn clean compile
   # exemple (ne pas supprimé)
   #nom-du-job:
