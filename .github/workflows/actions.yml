@@ -9,8 +9,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '17'
-      - run: cd projet
-      - run: mvn clean compile
+      - run: cd projet && mvn clean compile
   # exemple (ne pas supprimé)
   #nom-du-job:
   #  runs-on: image-os
