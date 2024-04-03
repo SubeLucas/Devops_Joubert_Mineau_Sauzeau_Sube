@@ -1,0 +1,23 @@
+name: actions
+run-name: ${{ github.actor }} is learning GitHub Actions
+on: [push]
+jobs:
+  check-bats-version:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - run: npm install -g bats
+      - run: bats -v
+  # exemple (ne pas supprimé)
+  #nom-du-job:
+  #  runs-on: image-os
+  #  steps:
+  #    - uses: actions/checkout@v4  #Ne pas changer ça 
+  #    - uses: actions/setup-node@v4
+  #      with:
+  #        node-version: '20'       # Précise sur quelle version de java le test est effectué
+  #    - run: une commande
+  #    - run: une autre commande
