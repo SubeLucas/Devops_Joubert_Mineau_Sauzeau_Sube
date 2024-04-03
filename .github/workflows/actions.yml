@@ -1,6 +1,13 @@
 name: actions
-run-name: ${{ github.actor }} lance le test de compilation
-on: [push]
+
+run-name: test de compilation
+
+on:
+  push:
+    branches:
+      ignore: '**'  # ignore tous les push sur toutes les branches
+  schedule:
+    - cron: '0 0 * * *'  # exécute une fois par jour à minuit (UTC)
 jobs:
   compile-projet:
     runs-on: ubuntu-latest
