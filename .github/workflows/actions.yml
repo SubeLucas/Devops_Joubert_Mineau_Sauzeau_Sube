@@ -10,7 +10,6 @@ jobs:
         with:
           java-version: '21'
           distribution: 'adopt'
-          cache: 'gradle'
       - run: cd projet && mvn clean compile
   # exemple (ne pas supprimé)
   #nom-du-job:
