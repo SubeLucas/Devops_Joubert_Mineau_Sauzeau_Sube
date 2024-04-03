@@ -10,7 +10,9 @@ jobs:
         with:
           java-version: '21'
           distribution: 'adopt'
-      - run: cd projet && mvn clean compile
+      - run: ls
+      - run: java --version
+      - run: mvn clean compile
   # exemple (ne pas supprimé)
   #nom-du-job:
   #  runs-on: image-os
