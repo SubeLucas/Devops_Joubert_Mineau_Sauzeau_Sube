@@ -5,8 +5,14 @@ run-name: test de compilation
 
 on:
   workflow_dispatch:
+    inputs:
+      manuel:
+        description: 'Exécuter manuellement le workflow'
+        required: false
   schedule:
     - cron: '0 0 * * *'  # exécute une fois par jour à minuit (UTC)
+
+    
 jobs:
   compile-projet:
     runs-on: ubuntu-latest
