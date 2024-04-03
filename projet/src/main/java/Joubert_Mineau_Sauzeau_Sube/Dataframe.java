@@ -40,4 +40,44 @@ public class Dataframe {
 
         createDataframe(columnNames, columns);
     }
+
+    public void createDataframe(String[] columnNames, Object[]... columnArrays){
+        matElements = new HashMap<String, Vector<Object>>();
+
+        int i = 0;
+        String columnName = "";
+        for(Object[] columnArray : columnArrays){
+            Vector<Object> columnVector = new Vector<>(Arrays.asList(columnArray));
+            if (i >= columnNames.length) {
+                columnName = String.valueOf(i);
+            }
+            else{
+                columnName = columnNames[i];
+            }
+            matElements.put(columnName, columnVector);
+            i++;
+        }
+    }
+
+    public void print (){
+        String tab = "      ";
+        for (String key : matElements.keySet()){System.out.print(key + tab);}
+        System.out.println();
+        int i = 0;
+        boolean endlist = true;
+        while (endlist){
+            endlist = false;
+            for (String key : matElements.keySet()){
+                Vector<Object> vec = matElements.get(key);
+                if(i < vec.size()) {
+                    System.out.print(vec.get(i) + tab);
+                    endlist = true;
+                }else{
+                    System.out.print("Nan" + tab);
+                }
+            }
+            i++;
+            System.out.println();
+        }
+    }
 }
