@@ -2,15 +2,14 @@ name: actions
 run-name: ${{ github.actor }} is learning GitHub Actions
 on: [push]
 jobs:
-  check-bats-version:
+  compile-projet:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: '20'
-      - run: npm install -g bats
-      - run: bats -v
+          node-version: '21'
+      - run: cd projet && mvn clean compile
   # exemple (ne pas supprimé)
   #nom-du-job:
   #  runs-on: image-os
@@ -19,5 +18,5 @@ jobs:
   #    - uses: actions/setup-node@v4
   #      with:
   #        node-version: '20'       # Précise sur quelle version de java le test est effectué
-  #    - run: une commande
-  #    - run: une autre commande
+  #    - run: une commande          # Commande qui lance tout les tests unitaire
+  #    - run: une autre commande    # 
