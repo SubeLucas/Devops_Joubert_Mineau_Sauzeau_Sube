@@ -94,4 +94,13 @@ public class Dataframe {
     public Vector<Object> getColumn(String columnName){
         return matElements.get(columnName);
     }
+
+    //Vecteur de vecteur
+    public Vector<Vector<Object>> getColumns(String[] nomsCol){
+        return null;
+    }
+
+    public Vector<Vector<Object>> getRows(int[] idxRows){
+        return null;
+    }
 }
