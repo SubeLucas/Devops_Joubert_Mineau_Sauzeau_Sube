@@ -1,45 +1,34 @@
-name: actions
+name: Build sample Java Maven project
 
-run-name: test de compilation
+on: [push, pull_request]
 
-
-on:
-  workflow_dispatch:
-    inputs:
-      manuel:
-        description: 'Exécuter manuellement le workflow'
-        required: false
-  schedule:
-    - cron: '0 0 * * *'  # exécute une fois par jour à minuit (UTC)
-
-    
 jobs:
-  compile-projet:
-    runs-on: ubuntu-latest
+  compile:
+    # compile job
+
+  build:
+    runs-on: ubuntu-20.04
+    needs: compile
+    name: Build the Maven Project
     steps:
-      - uses: actions/checkout@v3
-      - name: Set up JDK 18
-        uses: actions/setup-java@v3
-        with:
+    - uses: actions/checkout@v2
+    - uses: actions/cache@v2
+      with:
+        path: ~/.m2/repository
+        key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+        restore-keys: |
+          ${{ runner.os }}-maven-
+    - name: Set up JDK 18
+      uses: actions/setup-java@v2
+      with:
+          distribution: 'adopt'
           java-version: '18'
-          distribution: 'temurin'
-          #server-id: github # Value of the distributionManagement/repository/id field of the pom.xml
-          #settings-path: ${{ github.workspace }} # location for the settings.xml file
-
-      - name: Build with Maven
-        run: mvn -B package --file pom.xml
-
-      #- name: Publish to GitHub Packages Apache Maven
-      #  run: mvn deploy -s $GITHUB_WORKSPACE/settings.xml
-      #  env:
-      #    GITHUB_TOKEN: ${{ github.token }}
-  # exemple (ne pas supprimé)
-  #nom-du-job:
-  #  runs-on: image-os
-  #  steps:
-  #    - uses: actions/checkout@v4  #Ne pas changer ça 
-  #    - uses: actions/setup-node@v4
-  #      with:
-  #        node-version: '20'       # Précise sur quelle version de java le test est effectué
-  #    - run: une commande          # Commande qui lance tout les tests unitaire
-  #    - run: une autre commande    # 
+          java-package: jdk
+    - name: Build and test project
+      working-directory: github-actions-java-maven
+      run: mvn -B verify
+    - name: Upload Maven build artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: artifact.jar
+        path: github-actions-java-maven/target/github-actions-java-maven.jar
