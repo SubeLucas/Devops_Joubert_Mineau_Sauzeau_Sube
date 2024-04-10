@@ -18,25 +18,35 @@ public class Dataframe {
     public Dataframe(String filename) throws IOException {
 
         Vector<Vector<String>> records = new Vector<>();
-        try (BufferedReader br = new BufferedReader(new FileReader("book.csv"))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] values = line.split(";");
-                records.add((Vector<String>) Arrays.asList(values));
+                records.add(new Vector<String> (Arrays.asList(values)));
             }
         }
 
         String[] columnNames = new String[records.get(0).size()];
-        columnNames = (String[]) records.get(0).toArray();
+        columnNames = Arrays.stream(records.get(0).toArray()).toArray(String[]::new);
 
-        Object[][] columns = new Object[records.size()-1][];
-        for(int l = 1; l < records.size(); l++){
-            Object[] column = new Object[records.size()];
-            for(int c = 0; c < records.get(l).size(); c++){
-                column[c] = records.get(l).get(c);
+        Object[][] columns = new Object[records.get(0).size()][];
+
+        for(int c = 0; c < records.get(0).size(); c++){
+            Object[] column = new Object[records.size()-1];
+            for(int l = 1, i = 0;l < records.size(); l++, i++){
+                column[i] = Integer.parseInt(records.get(l).get(c));
             }
-            columns[l-1] = column;
+            columns[c] = column;
         }
+
+        /*for(int l = 1; l < records.size()-1; l++){
+            Object[] column = new Object[records.size()-1];
+
+            for(int c = 0; c < records.get(l).size(); c++){
+                column[l] = records.get(l).get(c);
+            }
+            columns[c] = column;
+        }*/
 
         createDataframe(columnNames, columns);
     }
@@ -79,5 +89,9 @@ public class Dataframe {
             i++;
             System.out.println();
         }
+    }
+
+    public Vector<Object> getColumn(String columnName){
+        return matElements.get(columnName);
     }
 }
