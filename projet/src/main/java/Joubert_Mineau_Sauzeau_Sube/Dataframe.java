@@ -100,7 +100,33 @@ public class Dataframe {
         return null;
     }
 
+
+    //idxRows liste d'index croissant
     public Vector<Vector<Object>> getRows(int[] idxRows){
-        return null;
+        Vector<Vector<Object>> res = new Vector<Vector<Object>>();
+
+        int i = 0;  //Parcours tout les vecteurs
+        int j = 0;  //parcours idxRows
+        boolean endlist = true;
+        while (endlist){
+            endlist = false;
+            for (String key : matElements.keySet()){
+                Vector<Object> vec = matElements.get(key);
+                if(i < vec.size()) {
+                    endlist = true;
+                }
+                if(i == idxRows[j]){
+                    res.add(vec);
+                    j++;
+                    if(j > idxRows.length){
+                        endlist = false;
+                    }
+                }
+
+            }
+            i++;
+        }
+        
+        return res;
     }
 }
