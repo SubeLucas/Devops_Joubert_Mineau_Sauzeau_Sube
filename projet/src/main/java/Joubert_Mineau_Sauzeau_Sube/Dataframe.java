@@ -1,4 +1,4 @@
-package main.java.Joubert_Mineau_Sauzeau_Sube;
+package Joubert_Mineau_Sauzeau_Sube;
 
 import javax.xml.crypto.Data;
 import java.io.BufferedReader;
@@ -39,15 +39,6 @@ public class Dataframe {
             columns[c] = column;
         }
 
-        /*for(int l = 1; l < records.size()-1; l++){
-            Object[] column = new Object[records.size()-1];
-
-            for(int c = 0; c < records.get(l).size(); c++){
-                column[l] = records.get(l).get(c);
-            }
-            columns[c] = column;
-        }*/
-
         createDataframe(columnNames, columns);
     }
 
@@ -69,7 +60,41 @@ public class Dataframe {
         }
     }
 
-    public void print (){
+
+    private void print_column_names(String tab){
+        for (String key : matElements.keySet()){System.out.print(key + tab);}
+        System.out.println();
+    }
+    private void print_one_line(String tab, int i){
+        boolean endlist = true;
+        while (endlist) {
+            endlist = false;
+            for (String key : matElements.keySet()){
+                Vector<Object> vec = matElements.get(key);
+                if(i < vec.size()) {
+                    System.out.print(vec.get(i) + tab);
+                    endlist = true;
+                }else{
+                    System.out.print("Nan" + tab);
+                }
+            }
+            System.out.println();
+        }
+    }
+
+    public void display_first_lines(int number_of_lines){
+        String tab = "      ";
+        print_column_names(tab);
+        for (int j = 0; j < number_of_lines; j++){
+            print_one_line(tab, j); 
+        }
+    }
+
+    public void display_first_lines(){
+        display_first_lines(5);
+    }
+
+    public void display_all_lines (){
         String tab = "      ";
         for (String key : matElements.keySet()){System.out.print(key + tab);}
         System.out.println();
@@ -90,6 +115,7 @@ public class Dataframe {
             System.out.println();
         }
     }
+
 
     public Vector<Object> getColumn(String columnName){
         return matElements.get(columnName);
