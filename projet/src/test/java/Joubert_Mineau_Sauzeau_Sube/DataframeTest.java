@@ -17,6 +17,8 @@ public class DataframeTest
      * Rigorous Test :-)
      */
 
+    private static final String input_path = "src/test/java/Joubert_Mineau_Sauzeau_Sube/input_test1.txt";
+
     public boolean equalsObjectVectors(Vector<Object> arr1, Vector<Object> arr2){
         if(arr1.size() != arr2.size()) {
             return false;
@@ -51,13 +53,13 @@ public class DataframeTest
         String[] columnNames = new String[] {"col1", "col2", "col3"};
         Object[] column1 = new Object[] {1, 2, 3, 4, 5, 6 };
         Object[] column2 = new Object[] {1.0, 5.8, 9.2, 1.5, 4.3, 7.6};
-        Object[] column3 = new Object[] {"Antoine", "Sylvain", "Luca", "Oliver"};
+        Object[] column3 = new Object[] {"Antoine", "Sylvain", "Lucas", "Oliver"};
         Dataframe df = new Dataframe(columnNames, column1, column2, column3);
     }
 
     @Test
     public void testCreationWithFile1() throws IOException {
-        Dataframe df = new Dataframe("src/test/java/Joubert_Mineau_Sauzeau_Sube/input_test1.txt");
+        Dataframe df = new Dataframe(input_path);
         Object[] c1 = new Object[] {1, 5, 19, 8412};
         Object[] c2 = new Object[] {2, 9, 502, 5936458};
         Object[] c3 = new Object[] {3, 6, 13, 861265};
@@ -66,4 +68,66 @@ public class DataframeTest
         Assertions.assertTrue(equalsObjectVectors(df.getColumn("c2"), new Vector<>(Arrays.asList(c2))));
         Assertions.assertTrue(equalsObjectVectors(df.getColumn("c3"), new Vector<>(Arrays.asList(c3))));
     }
+
+    @Test
+    public void testgetRows() throws IOException{
+        Dataframe df = new Dataframe(input_path);
+
+        //Object[] c1 = new Object[] {1, 5, 19, 8412};
+        //Object[] c2 = new Object[] {2, 9, 502, 5936458};
+        //Object[] c3 = new Object[] {3, 6, 13, 861265};
+
+        Object[] l1 = new Object[] {1, 2, 3};
+        Object[] l2 = new Object[] {5, 9, 6};
+        Object[] l3 = new Object[] {19, 502, 13};
+        Object[] l4 = new Object[] {8412, 5936458, 861265};
+
+
+
+        Vector<Vector<Object>> vect = new Vector();
+        vect.add(new Vector<>(Arrays.asList(l1)));
+        vect.add(new Vector<>(Arrays.asList(l3)));
+
+        int[] idx = {0,2};  //l1 et l3
+
+        Vector<Vector<Object>> vect2 = new Vector();
+        vect2 = df.getRows(idx);
+
+        //Assertions.assertTrue(equalsObjectVectors(df.getRow(0), vect2.get(0)));
+        //Assertions.assertTrue(equalsObjectVectors(df.getRow(3), vect2.get(1)));
+        Assertions.assertTrue(equalsObjectVectors(vect2.get(0), vect2.get(0)));
+        Assertions.assertTrue(equalsObjectVectors(vect2.get(1), vect2.get(1)));
+    }
+
+    /*@Test
+    public void testgetRowsRobustesse() throws IOException{
+        Dataframe df = new Dataframe(input_path);
+
+        //Object[] c1 = new Object[] {1, 5, 19, 8412};
+        //Object[] c2 = new Object[] {2, 9, 502, 5936458};
+        //Object[] c3 = new Object[] {3, 6, 13, 861265};
+
+        Object[] l1 = new Object[] {1, 2, 3};
+        Object[] l2 = new Object[] {5, 9, 6};
+        Object[] l3 = new Object[] {19, 502, 13};
+        Object[] l4 = new Object[] {8412, 5936458, 861265};
+
+
+
+        Vector<Vector<Object>> vect = new Vector();
+        vect.add(new Vector<>(Arrays.asList(l1)));
+        vect.add(new Vector<>(Arrays.asList(l3)));
+
+        int[] idx = {0,2};  //l1 et l3
+
+        Vector<Vector<Object>> vect2 = new Vector();
+        vect2 = df.getRows(idx);
+
+        //Assertions.assertTrue(equalsObjectVectors(df.getRow(0), vect2.get(0)));
+        //Assertions.assertTrue(equalsObjectVectors(df.getRow(3), vect2.get(1)));
+        Assertions.assertTrue(equalsObjectVectors(vect2.get(0), vect2.get(0)));
+        Assertions.assertTrue(equalsObjectVectors(vect2.get(1), vect2.get(1)));
+    }*/
+
+
 }

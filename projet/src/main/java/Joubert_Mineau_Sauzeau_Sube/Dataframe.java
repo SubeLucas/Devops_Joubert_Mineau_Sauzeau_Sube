@@ -31,22 +31,13 @@ public class Dataframe {
 
         Object[][] columns = new Object[records.get(0).size()][];
 
-        for(int c = 0; c < records.get(0).size(); c++){
-            Object[] column = new Object[records.size()-1];
-            for(int l = 1, i = 0;l < records.size(); l++, i++){
+        for(int c = 0; c < records.get(0).size(); c++) {
+            Object[] column = new Object[records.size() - 1];
+            for (int l = 1, i = 0; l < records.size(); l++, i++) {
                 column[i] = Integer.parseInt(records.get(l).get(c));
             }
             columns[c] = column;
         }
-
-        /*for(int l = 1; l < records.size()-1; l++){
-            Object[] column = new Object[records.size()-1];
-
-            for(int c = 0; c < records.get(l).size(); c++){
-                column[l] = records.get(l).get(c);
-            }
-            columns[c] = column;
-        }*/
 
         createDataframe(columnNames, columns);
     }
@@ -101,32 +92,26 @@ public class Dataframe {
     }
 
 
-    //idxRows liste d'index croissant
-    public Vector<Vector<Object>> getRows(int[] idxRows){
+    public Vector<Vector<Object>> getRows(int[] idxRows) {
         Vector<Vector<Object>> res = new Vector<Vector<Object>>();
 
-        int i = 0;  //Parcours tout les vecteurs
-        int j = 0;  //parcours idxRows
-        boolean endlist = true;
-        while (endlist){
-            endlist = false;
-            for (String key : matElements.keySet()){
-                Vector<Object> vec = matElements.get(key);
-                if(i < vec.size()) {
-                    endlist = true;
+        for (int i = 0; i < idxRows.length; i++) {
+            Vector<Object> row = new Vector<Object>();
+            for (String key : matElements.keySet()) {
+                Vector<Object> column = matElements.get(key);
+                if (idxRows[i] < column.size()) {
+                    row.add(column.get(idxRows[i]));
                 }
-                if(i == idxRows[j]){
-                    res.add(vec);
-                    j++;
-                    if(j > idxRows.length){
-                        endlist = false;
-                    }
+                else {
+                    row.add("Nan");
                 }
-
             }
-            i++;
+            res.add(row);
         }
-        
+
         return res;
     }
+
+
+
 }
