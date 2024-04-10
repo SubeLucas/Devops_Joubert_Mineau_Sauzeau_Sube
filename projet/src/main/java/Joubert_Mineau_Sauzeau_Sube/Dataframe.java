@@ -1,5 +1,7 @@
 package main.java.Joubert_Mineau_Sauzeau_Sube;
 
+import Joubert_Mineau_Sauzeau_Sube.NotANumberException;
+
 import javax.xml.crypto.Data;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -38,15 +40,6 @@ public class Dataframe {
             }
             columns[c] = column;
         }
-
-        /*for(int l = 1; l < records.size()-1; l++){
-            Object[] column = new Object[records.size()-1];
-
-            for(int c = 0; c < records.get(l).size(); c++){
-                column[l] = records.get(l).get(c);
-            }
-            columns[c] = column;
-        }*/
 
         createDataframe(columnNames, columns);
     }
@@ -94,4 +87,62 @@ public class Dataframe {
     public Vector<Object> getColumn(String columnName){
         return matElements.get(columnName);
     }
+
+
+    private boolean isANumber(Object obj){
+        return obj instanceof Float || obj instanceof Integer ||
+                obj instanceof Double || obj instanceof Long;
+    }
+
+    /**
+     *
+     * @return The sum of each column or throws NotANumberException if elements are not Integers, Floats or Doubles
+     */
+    public HashMap<String, Float> sum() throws NotANumberException {
+        HashMap<String, Float> res = new HashMap<>();
+
+        for (String key : matElements.keySet()){
+            Vector<Object> vec = matElements.get(key);
+
+            float sum = 0;
+            for (int i = 0; i < vec.size(); i++) {
+                if(!isANumber(vec.get(i)))throw new NotANumberException();
+                sum +=  Float.parseFloat(vec.get(i).toString());
+            }
+            res.put(key,sum);
+
+        }
+        return res;
+    }
+
+    /**
+     *
+     * @return The mean of each column or throws NotANumberException if elements are not Integers, Floats or Doubles
+     */
+    public HashMap<String, Float> mean() throws NotANumberException {
+        HashMap<String, Float> res = new HashMap<>();
+
+        for (String key : matElements.keySet()){
+            Vector<Object> vec = matElements.get(key);
+
+            if(vec.isEmpty()){
+                res.put(key,0f);
+
+            }else{
+                float sum = 0;
+                for (int i = 0; i < vec.size(); i++) {
+                    if(!isANumber(vec.get(i)))throw new NotANumberException();
+                    sum +=  Float.parseFloat(vec.get(i).toString());
+                }
+                res.put(key,sum/vec.size());
+            }
+        }
+        return res;
+    }
+
+
+
+
+
+
 }
