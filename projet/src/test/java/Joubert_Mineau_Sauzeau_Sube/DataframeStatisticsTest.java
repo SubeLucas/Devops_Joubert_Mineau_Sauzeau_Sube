@@ -185,4 +185,91 @@ public class DataframeStatisticsTest
         });
     }
 
+
+    /**
+     * Max Tests
+     */
+
+    @Test
+    public void testMaxIntegers()
+    {
+        Dataframe df = createDataframe(
+                new Object[]{2, 2, 5, 5, 2, 2 },
+                new Object[] {-100, -200, -300, -400},
+                new Object[] {0,0,0,0,0,0,0});
+
+        HashMap<String, Float> resExpected = createResult(5f, -100f, 0f);
+        HashMap<String, Float> resCalculated = df.max();
+
+        Assertions.assertEquals(resExpected, resCalculated);
+    }
+
+    @Test
+    public void testMaxFloats()
+    {
+        Dataframe df = createDataframe(
+                new Object[] {10f, 20f, 20f, -100f, 10f, 10f },
+                new Object[] {0f, 0f, 0f, 18f, 0f, 0f });
+
+        HashMap<String, Float> resExpected = createResult(20f, 18f);
+        HashMap<String, Float> resCalculated = df.max();
+
+        Assertions.assertEquals(resExpected, resCalculated);
+    }
+
+    @Test
+    public void testMaxSpecialCase0()
+    {
+        Dataframe df = createDataframe(
+                new Object[] {});
+
+        HashMap<String, Float> resExpected = createResult();
+        HashMap<String, Float> resCalculated = df.max();
+
+        Assertions.assertEquals(resExpected, resCalculated);
+    }
+
+
+    /**
+     * Max Tests
+     */
+
+    @Test
+    public void testMinIntegers()
+    {
+        Dataframe df = createDataframe(
+                new Object[]{2, 2, 5, 5, 2, 2 },
+                new Object[] {-100, -200, -300, -400},
+                new Object[] {0,0,0,0,0,0,0});
+
+        HashMap<String, Float> resExpected = createResult(2f, -400f, 0f);
+        HashMap<String, Float> resCalculated = df.min();
+
+        Assertions.assertEquals(resExpected, resCalculated);
+    }
+
+    @Test
+    public void testMinFloats()
+    {
+        Dataframe df = createDataframe(
+                new Object[] {10f, 20f, 20f, -100f, 10f, 10f },
+                new Object[] {0f, 0f, 0f, 18f, 0f, 0f });
+
+        HashMap<String, Float> resExpected = createResult(-100f, 0f);
+        HashMap<String, Float> resCalculated = df.min();
+
+        Assertions.assertEquals(resExpected, resCalculated);
+    }
+
+    @Test
+    public void testMinSpecialCase0()
+    {
+        Dataframe df = createDataframe(
+                new Object[] {});
+
+        HashMap<String, Float> resExpected = createResult();
+        HashMap<String, Float> resCalculated = df.min();
+
+        Assertions.assertEquals(resExpected, resCalculated);
+    }
 }

@@ -94,6 +94,7 @@ public class Dataframe {
                 obj instanceof Double || obj instanceof Long;
     }
 
+
     /**
      *
      * @return The sum of each column or throws NotANumberException if elements are not Integers, Floats or Doubles
@@ -140,9 +141,57 @@ public class Dataframe {
         return res;
     }
 
+    /**
+     *
+     * @return The max of each column or throws NotANumberException if elements are not Integers, Floats or Doubles
+     */
+    public HashMap<String, Float> max() throws NotANumberException {
+        HashMap<String, Float> res = new HashMap<>();
 
+        for (String key : matElements.keySet()){
+            Vector<Object> vec = matElements.get(key);
 
+            if(!vec.isEmpty()){
 
+                if(!isANumber(vec.get(0)))throw new NotANumberException();
+
+                float m = Float.parseFloat(vec.get(0).toString());
+                for (int i = 0; i < vec.size(); i++) {
+                    if(m < Float.parseFloat(vec.get(i).toString())){
+                        m = Float.parseFloat(vec.get(i).toString());
+                    }
+                }
+                res.put(key,m);
+            }
+        }
+        return res;
+    }
+
+    /**
+     *
+     * @return The min of each column or throws NotANumberException if elements are not Integers, Floats or Doubles
+     */
+    public HashMap<String, Float> min() throws NotANumberException {
+        HashMap<String, Float> res = new HashMap<>();
+
+        for (String key : matElements.keySet()){
+            Vector<Object> vec = matElements.get(key);
+
+            if(!vec.isEmpty()){
+
+                if(!isANumber(vec.get(0)))throw new NotANumberException();
+
+                float m = Float.parseFloat(vec.get(0).toString());
+                for (int i = 0; i < vec.size(); i++) {
+                    if(m > Float.parseFloat(vec.get(i).toString())){
+                        m = Float.parseFloat(vec.get(i).toString());
+                    }
+                }
+                res.put(key,m);
+            }
+        }
+        return res;
+    }
 
 
 }
