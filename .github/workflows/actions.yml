@@ -26,4 +26,6 @@ jobs:
           java-package: jdk
     - name: Build and test project
       run: mvn -B clean install
+      run: javadoc -d doc -sourcepath src/main/java/Joubert_Mineau_Sauzeau_Sube/*.java
+
 
