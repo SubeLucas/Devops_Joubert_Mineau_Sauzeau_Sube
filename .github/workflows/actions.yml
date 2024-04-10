@@ -1,23 +1,30 @@
-name: actions
-run-name: ${{ github.actor }} is learning GitHub Actions
-on: [push]
+name: Build sample Java Maven project
+
+on: [push, pull_request]
+
 jobs:
-  check-bats-version:
-    runs-on: ubuntu-latest
+  #compile:
+    
+
+  build:
+    runs-on: ubuntu-20.04
+    #needs: compile
+    name: Build the Maven Project
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-      - run: npm install -g bats
-      - run: bats -v
-  # exemple (ne pas supprimé)
-  #nom-du-job:
-  #  runs-on: image-os
-  #  steps:
-  #    - uses: actions/checkout@v4  #Ne pas changer ça 
-  #    - uses: actions/setup-node@v4
-  #      with:
-  #        node-version: '20'       # Précise sur quelle version de java le test est effectué
-  #    - run: une commande
-  #    - run: une autre commande
+    - uses: actions/checkout@v3
+    - uses: actions/cache@v3
+      with:
+        path: ~/.m2/repository
+        key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+        restore-keys: |
+          ${{ runner.os }}-maven-
+    - name: Set up JDK 20
+      uses: actions/setup-java@v3
+      with:
+          distribution: 'adopt'
+          java-version: '20'
+          java-package: jdk
+    - name: Build and test project
+      run: mvn -B clean install && javadoc -d doc -sourcepath projet/src/main/java/Joubert_Mineau_Sauzeau_Sube/*.java
+
+
