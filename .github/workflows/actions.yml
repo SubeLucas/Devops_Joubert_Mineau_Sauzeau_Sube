@@ -25,7 +25,7 @@ jobs:
           java-version: '11'
           java-package: jdk
     - name: Build and test project
-      working-directory: github-actions-java-maven
+      #working-directory: github-actions-java-maven
       run: mvn -B verify
     - name: Upload Maven build artifact
       uses: actions/upload-artifact@v2
