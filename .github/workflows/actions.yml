@@ -25,10 +25,5 @@ jobs:
           java-version: '20'
           java-package: jdk
     - name: Build and test project
-      run: mvn -B verify
-    - name: Upload Maven build artifact
-      uses: actions/upload-artifact@v3
-      with:
-        name: artifact.jar
-        path: github-actions-java-maven/target/github-actions-java-maven.jar
+      run: mvn -B clean install
 
