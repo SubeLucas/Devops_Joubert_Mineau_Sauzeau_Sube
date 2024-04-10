@@ -78,9 +78,9 @@ public class DataframeTest
         //Object[] c3 = new Object[] {3, 6, 13, 861265};
 
         Object[] l1 = new Object[] {1, 2, 3};
-        Object[] l2 = new Object[] {5, 9, 6};
+        //Object[] l2 = new Object[] {5, 9, 6};
         Object[] l3 = new Object[] {19, 502, 13};
-        Object[] l4 = new Object[] {8412, 5936458, 861265};
+        //Object[] l4 = new Object[] {8412, 5936458, 861265};
 
 
 
@@ -93,13 +93,11 @@ public class DataframeTest
         Vector<Vector<Object>> vect2 = new Vector();
         vect2 = df.getRows(idx);
 
-        //Assertions.assertTrue(equalsObjectVectors(df.getRow(0), vect2.get(0)));
-        //Assertions.assertTrue(equalsObjectVectors(df.getRow(3), vect2.get(1)));
-        Assertions.assertTrue(equalsObjectVectors(vect2.get(0), vect2.get(0)));
-        Assertions.assertTrue(equalsObjectVectors(vect2.get(1), vect2.get(1)));
+        Assertions.assertTrue(equalsObjectVectors(vect.get(0), vect2.get(0)));
+        Assertions.assertTrue(equalsObjectVectors(vect.get(1), vect2.get(1)));
     }
 
-    /*@Test
+    @Test
     public void testgetRowsRobustesse() throws IOException{
         Dataframe df = new Dataframe(input_path);
 
@@ -108,26 +106,32 @@ public class DataframeTest
         //Object[] c3 = new Object[] {3, 6, 13, 861265};
 
         Object[] l1 = new Object[] {1, 2, 3};
-        Object[] l2 = new Object[] {5, 9, 6};
+        //Object[] l2 = new Object[] {5, 9, 6};
         Object[] l3 = new Object[] {19, 502, 13};
-        Object[] l4 = new Object[] {8412, 5936458, 861265};
+        //Object[] l4 = new Object[] {8412, 5936458, 861265};
+        Object[] vide = new Object[] {"Nan", "Nan", "Nan"};
 
 
 
+        // vecteur attendu
         Vector<Vector<Object>> vect = new Vector();
         vect.add(new Vector<>(Arrays.asList(l1)));
         vect.add(new Vector<>(Arrays.asList(l3)));
+        vect.add(new Vector<>(Arrays.asList(vide)));
 
-        int[] idx = {0,2};  //l1 et l3
+        //Les indices des lignes selectionnées
+        int[] idx = {0,2,12};  //l1 et l3 + une ligne trop loin
 
         Vector<Vector<Object>> vect2 = new Vector();
         vect2 = df.getRows(idx);
 
-        //Assertions.assertTrue(equalsObjectVectors(df.getRow(0), vect2.get(0)));
-        //Assertions.assertTrue(equalsObjectVectors(df.getRow(3), vect2.get(1)));
-        Assertions.assertTrue(equalsObjectVectors(vect2.get(0), vect2.get(0)));
-        Assertions.assertTrue(equalsObjectVectors(vect2.get(1), vect2.get(1)));
-    }*/
+
+        Assertions.assertTrue(equalsObjectVectors(vect.get(0), vect2.get(0)));
+        Assertions.assertTrue(equalsObjectVectors(vect.get(1), vect2.get(1)));
+
+        //A mettre quand comparaison de String faite dans equalsObjectVectors
+        //Assertions.assertTrue(equalsObjectVectors(vect.get(2), vect2.get(2)));
+    }
 
 
 }

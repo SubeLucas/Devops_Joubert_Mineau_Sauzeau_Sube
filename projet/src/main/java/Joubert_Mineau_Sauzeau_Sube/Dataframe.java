@@ -10,6 +10,7 @@ import java.util.*;
 public class Dataframe {
 
     HashMap<String, Vector<Object>> matElements;
+    String[] keys;
 
     public Dataframe(String[] columnNames, Object[]... columnArrays){
         createDataframe(columnNames, columnArrays);
@@ -28,6 +29,7 @@ public class Dataframe {
 
         String[] columnNames = new String[records.get(0).size()];
         columnNames = Arrays.stream(records.get(0).toArray()).toArray(String[]::new);
+        keys = columnNames;
 
         Object[][] columns = new Object[records.get(0).size()][];
 
@@ -44,7 +46,7 @@ public class Dataframe {
 
     public void createDataframe(String[] columnNames, Object[]... columnArrays){
         matElements = new HashMap<String, Vector<Object>>();
-
+        keys = columnNames;
         int i = 0;
         String columnName = "";
         for(Object[] columnArray : columnArrays){
@@ -91,18 +93,23 @@ public class Dataframe {
         return null;
     }
 
-
+    /**
+     *
+     * @param int[] idxRows
+     * @return Vector<Vector<Object>>
+     */
     public Vector<Vector<Object>> getRows(int[] idxRows) {
         Vector<Vector<Object>> res = new Vector<Vector<Object>>();
 
         for (int i = 0; i < idxRows.length; i++) {
             Vector<Object> row = new Vector<Object>();
-            for (String key : matElements.keySet()) {
+            for (String key : keys) {
                 Vector<Object> column = matElements.get(key);
                 if (idxRows[i] < column.size()) {
                     row.add(column.get(idxRows[i]));
                 }
                 else {
+                    //Si on a des colonnes plus petites que d'autre
                     row.add("Nan");
                 }
             }
