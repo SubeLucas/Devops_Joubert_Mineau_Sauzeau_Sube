@@ -1,5 +1,5 @@
-//package Joubert_Mineau_Sauzeau_Sube;
-package test.java.Joubert_Mineau_Sauzeau_Sube;
+package Joubert_Mineau_Sauzeau_Sube;
+//package test.java.Joubert_Mineau_Sauzeau_Sube;
 
 import javax.xml.crypto.Data;
 import java.io.BufferedReader;
@@ -11,6 +11,7 @@ import java.util.*;
 public class Dataframe {
 
     HashMap<String, Vector<Object>> matElements;
+    private static final int TAILLE_LARGEUR_COL = 15 ;
 
     public Dataframe(String[] columnNames, Object[]... columnArrays){
         createDataframe(columnNames, columnArrays);
@@ -62,8 +63,11 @@ public class Dataframe {
     }
 
 
-    private void print_column_names(String tab){
-        for (String key : matElements.keySet()){System.out.print(key + tab);}
+    private void print_column_names(){
+        for (String key : matElements.keySet()){
+            System.out.print(key);
+            print_spaces(TAILLE_LARGEUR_COL - key.length());
+        }
         System.out.println();
     }
 
@@ -74,8 +78,12 @@ public class Dataframe {
         }
         return maxi;
     }
-    private void print_lines(String tab, int from, int to){
-        int i = from;
+
+    private void print_spaces(int nb){
+        for (int i =0; i<nb;i++){System.out.print(' ');}
+    }
+    private void print_lines(int from, int to){
+        int i = from, temp_size;
         boolean endlist = true;
         int max_size = get_size_column_max();
 
@@ -83,10 +91,13 @@ public class Dataframe {
             endlist = false;
             for (Vector<Object> vec : matElements.values()){
                 if(i < vec.size()) {
-                    System.out.print(vec.get(i) + tab);
+                    //TODO traiter le cas ou cell > taille max
+                    System.out.print(vec.get(i));
+                    print_spaces(TAILLE_LARGEUR_COL - vec.get(i).toString().length());//j'adore l'OOP
                     endlist = true;
                 }else{
-                    System.out.print("Nan" + tab);
+                    System.out.print("Nan");
+                    print_spaces(TAILLE_LARGEUR_COL-3);
                 }
             }
             i++;
@@ -96,9 +107,8 @@ public class Dataframe {
     }
 
     public void display_first_lines(int number_of_lines){
-        String tab = "      ";
-        print_column_names(tab);
-        print_lines(tab, 0, number_of_lines);
+        print_column_names();
+        print_lines(0, number_of_lines);
     }
 
     public void display_first_lines(){
@@ -106,11 +116,13 @@ public class Dataframe {
     }
 
     public void display_all_lines (){
-        String tab = "      ";
-        print_column_names(tab);
-        print_lines(tab, 0, -1);
+        print_column_names();
+        print_lines(0, -1);
     }
 
+    //TODO affichage avec espace aligné
+    // on a une taille limite genre 30; on soustrait la taille du string a afficher et on ajoute le nombre restant d'espaces
+    // si > 30 on met un '.' à la fin
 
     public Vector<Object> getColumn(String columnName){
         return matElements.get(columnName);

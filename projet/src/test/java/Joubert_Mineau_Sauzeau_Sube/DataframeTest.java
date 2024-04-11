@@ -62,6 +62,7 @@ public class DataframeTest
     @Test
     public void testCreationWithFile1() throws IOException {
         Dataframe df = new Dataframe("src/test/java/Joubert_Mineau_Sauzeau_Sube/input_test1.txt");
+        df.display_all_lines();
         Object[] c1 = new Object[] {1, 5, 19, 8412};
         Object[] c2 = new Object[] {2, 9, 502, 5936458};
         Object[] c3 = new Object[] {3, 6, 13, 861265};
