@@ -1,4 +1,5 @@
-package Joubert_Mineau_Sauzeau_Sube;
+//package Joubert_Mineau_Sauzeau_Sube;
+package test.java.Joubert_Mineau_Sauzeau_Sube;
 
 import javax.xml.crypto.Data;
 import java.io.BufferedReader;
@@ -65,45 +66,22 @@ public class Dataframe {
         for (String key : matElements.keySet()){System.out.print(key + tab);}
         System.out.println();
     }
-    private void print_one_line(String tab, int i){
-        boolean endlist = true;
-        while (endlist) {
-            endlist = false;
-            for (String key : matElements.keySet()){
-                Vector<Object> vec = matElements.get(key);
-                if(i < vec.size()) {
-                    System.out.print(vec.get(i) + tab);
-                    endlist = true;
-                }else{
-                    System.out.print("Nan" + tab);
-                }
-            }
-            System.out.println();
+
+    private int get_size_column_max (){
+        int maxi = 0;
+        for(Vector<Object> vec : matElements.values()){
+            if (vec.size() > maxi) maxi = vec.size();
         }
+        return maxi;
     }
-
-    public void display_first_lines(int number_of_lines){
-        String tab = "      ";
-        print_column_names(tab);
-        for (int j = 0; j < number_of_lines; j++){
-            print_one_line(tab, j); 
-        }
-    }
-
-    public void display_first_lines(){
-        display_first_lines(5);
-    }
-
-    public void display_all_lines (){
-        String tab = "      ";
-        for (String key : matElements.keySet()){System.out.print(key + tab);}
-        System.out.println();
-        int i = 0;
+    private void print_lines(String tab, int from, int to){
+        int i = from;
         boolean endlist = true;
-        while (endlist){
+        int max_size = get_size_column_max();
+
+        while (endlist && i != to && i < max_size){
             endlist = false;
-            for (String key : matElements.keySet()){
-                Vector<Object> vec = matElements.get(key);
+            for (Vector<Object> vec : matElements.values()){
                 if(i < vec.size()) {
                     System.out.print(vec.get(i) + tab);
                     endlist = true;
@@ -114,6 +92,23 @@ public class Dataframe {
             i++;
             System.out.println();
         }
+
+    }
+
+    public void display_first_lines(int number_of_lines){
+        String tab = "      ";
+        print_column_names(tab);
+        print_lines(tab, 0, number_of_lines);
+    }
+
+    public void display_first_lines(){
+        display_first_lines(5);
+    }
+
+    public void display_all_lines (){
+        String tab = "      ";
+        print_column_names(tab);
+        print_lines(tab, 0, -1);
     }
 
 
