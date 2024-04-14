@@ -61,7 +61,7 @@ public class DataframeStatisticsTest
         Dataframe df = createDataframe(
                 new Object[]{});
 
-        HashMap<String, Float> resExpected = createResult(0f);
+        HashMap<String, Float> resExpected = createResult();
         HashMap<String, Float> resCalculated = df.sum();
 
         Assertions.assertEquals(resExpected, resCalculated);
@@ -130,6 +130,69 @@ public class DataframeStatisticsTest
         });
     }
 
+    @Test
+    public void testSumSelectColString()
+    {
+        Dataframe df = createDataframe(
+                new Object[] {"Hello", ",", "I", "Am", "A", "Test"});
+
+        assertThrows(NotANumberException.class, () -> {
+            df.sum("col1");
+        });
+    }
+
+    @Test
+    public void testSumSelectColFloat()
+    {
+        Dataframe df = createDataframe(
+                new Object[] {1.1f, 2.2f, 3.3f, 4.4f, 5.5f},
+                new Object[] {6.6f, 7.7f, 8.8f, 9.9f, 10.1f},
+                new Object[] {11.11f, 12.12f, 13.13f, 14.14f, 15.15f});
+
+        Float resExpected = 65.65f;
+        Float resCalculated = df.sum("col3");
+
+        Assertions.assertEquals(resExpected, resCalculated);
+    }
+
+    @Test
+    public void testSumSelectColInt()
+    {
+        Dataframe df = createDataframe(
+                new Object[] {1, 2, 3, 4, 5},
+                new Object[] {6, 7, 8, 9, 10},
+                new Object[] {11, 12, 13, 14, 15});
+
+        Float resExpected = 40f;
+        Float resCalculated = df.sum("col2");
+
+        Assertions.assertEquals(resExpected, resCalculated);
+    }
+
+    @Test
+    public void testSumSelectColSpecialCase0()
+    {
+        Dataframe df = createDataframe(
+                new Object[] {});
+
+        Float resExpected = null;
+        Float resCalculated = df.sum("col1");
+
+        Assertions.assertEquals(resExpected, resCalculated);
+    }
+
+    @Test
+    public void testSumSelectColSpecialCase1()
+    {
+        Dataframe df = createDataframe(
+                new Object[] {});
+
+        Float resExpected = null;
+        Float resCalculated = df.sum("col2");
+
+        Assertions.assertEquals(resExpected, resCalculated);
+    }
+
 
     /**
      * Mean Tests
@@ -155,7 +218,7 @@ public class DataframeStatisticsTest
         Dataframe df = createDataframe(
                 new Object[]{});
 
-        HashMap<String, Float> resExpected = createResult(0f);
+        HashMap<String, Float> resExpected = createResult();
         HashMap<String, Float> resCalculated = df.mean();
 
         Assertions.assertEquals(resExpected, resCalculated);
@@ -183,6 +246,69 @@ public class DataframeStatisticsTest
         assertThrows(NotANumberException.class, () -> {
             df.mean();
         });
+    }
+
+    @Test
+    public void testMeanSelectColString()
+    {
+        Dataframe df = createDataframe(
+                new Object[] {"Hello", ",", "I", "Am", "A", "Test"});
+
+        assertThrows(NotANumberException.class, () -> {
+            df.mean("col1");
+        });
+    }
+
+    @Test
+    public void testMeanSelectColFloat()
+    {
+        Dataframe df = createDataframe(
+                new Object[] {1.1f, 2.2f, 3.3f, 4.4f, 5.5f},
+                new Object[] {6.6f, 7.7f, 8.8f, 9.9f, 10.1f},
+                new Object[] {11.11f, 12.12f, 13.13f, 14.14f, 15.15f});
+
+        Float resExpected = 13.13f;
+        Float resCalculated = df.mean("col3");
+
+        Assertions.assertEquals(resExpected, resCalculated);
+    }
+
+    @Test
+    public void testMeanSelectColInt()
+    {
+        Dataframe df = createDataframe(
+                new Object[] {1, 2, 3, 4, 5},
+                new Object[] {6, 7, 8, 9, 10},
+                new Object[] {11, 12, 13, 14, 15});
+
+        Float resExpected = 8f;
+        Float resCalculated = df.mean("col2");
+
+        Assertions.assertEquals(resExpected, resCalculated);
+    }
+
+    @Test
+    public void testMeanSelectColSpecialCase0()
+    {
+        Dataframe df = createDataframe(
+                new Object[] {});
+
+        Float resExpected = null;
+        Float resCalculated = df.mean("col1");
+
+        Assertions.assertEquals(resExpected, resCalculated);
+    }
+
+    @Test
+    public void testMeanSelectColSpecialCase1()
+    {
+        Dataframe df = createDataframe(
+                new Object[] {});
+
+        Float resExpected = null;
+        Float resCalculated = df.mean("col2");
+
+        Assertions.assertEquals(resExpected, resCalculated);
     }
 
 
@@ -229,9 +355,72 @@ public class DataframeStatisticsTest
         Assertions.assertEquals(resExpected, resCalculated);
     }
 
+    @Test
+    public void testMaxSelectColString()
+    {
+        Dataframe df = createDataframe(
+                new Object[] {"Hello", ",", "I", "Am", "A", "Test"});
+
+        assertThrows(NotANumberException.class, () -> {
+            df.max("col1");
+        });
+    }
+
+    @Test
+    public void testMaxSelectColFloat()
+    {
+        Dataframe df = createDataframe(
+                new Object[] {1.1f, 2.2f, 3.3f, 4.4f, 5.5f},
+                new Object[] {6.6f, 7.7f, 8.8f, 9.9f, 10.1f},
+                new Object[] {11.11f, 12.12f, 13.13f, 14.14f, 15.15f});
+
+        Float resExpected = 15.15f;
+        Float resCalculated = df.max("col3");
+
+        Assertions.assertEquals(resExpected, resCalculated);
+    }
+
+    @Test
+    public void testMaxSelectColInt()
+    {
+        Dataframe df = createDataframe(
+                new Object[] {1, 2, 3, 4, 5},
+                new Object[] {6, 7, 8, 9, 10},
+                new Object[] {11, 12, 13, 14, 15});
+
+        Float resExpected = 10f;
+        Float resCalculated = df.max("col2");
+
+        Assertions.assertEquals(resExpected, resCalculated);
+    }
+
+    @Test
+    public void testMaxSelectColSpecialCase0()
+    {
+        Dataframe df = createDataframe(
+                new Object[] {});
+
+        Float resExpected = null;
+        Float resCalculated = df.max("col1");
+
+        Assertions.assertEquals(resExpected, resCalculated);
+    }
+
+    @Test
+    public void testMaxSelectColSpecialCase1()
+    {
+        Dataframe df = createDataframe(
+                new Object[] {});
+
+        Float resExpected = null;
+        Float resCalculated = df.max("col2");
+
+        Assertions.assertEquals(resExpected, resCalculated);
+    }
+
 
     /**
-     * Max Tests
+     * Min Tests
      */
 
     @Test
@@ -272,4 +461,69 @@ public class DataframeStatisticsTest
 
         Assertions.assertEquals(resExpected, resCalculated);
     }
+
+    @Test
+    public void testMinSelectColString()
+    {
+        Dataframe df = createDataframe(
+                new Object[] {"Hello", ",", "I", "Am", "A", "Test"});
+
+        assertThrows(NotANumberException.class, () -> {
+            df.min("col1");
+        });
+    }
+
+    @Test
+    public void testMinSelectColFloat()
+    {
+        Dataframe df = createDataframe(
+                new Object[] {1.1f, 2.2f, 3.3f, 4.4f, 5.5f},
+                new Object[] {6.6f, 7.7f, 8.8f, 9.9f, 10.1f},
+                new Object[] {11.11f, 12.12f, 13.13f, 14.14f, 15.15f});
+
+        Float resExpected = 11.11f;
+        Float resCalculated = df.min("col3");
+
+        Assertions.assertEquals(resExpected, resCalculated);
+    }
+
+    @Test
+    public void testMinSelectColInt()
+    {
+        Dataframe df = createDataframe(
+                new Object[] {1, 2, 3, 4, 5},
+                new Object[] {6, 7, 8, 9, 10},
+                new Object[] {11, 12, 13, 14, 15});
+
+        Float resExpected = 6f;
+        Float resCalculated = df.min("col2");
+
+        Assertions.assertEquals(resExpected, resCalculated);
+    }
+
+    @Test
+    public void testMinSelectColSpecialCase0()
+    {
+        Dataframe df = createDataframe(
+                new Object[] {});
+
+        Float resExpected = null;
+        Float resCalculated = df.min("col1");
+
+        Assertions.assertEquals(resExpected, resCalculated);
+    }
+
+    @Test
+    public void testMinSelectColSpecialCase1()
+    {
+        Dataframe df = createDataframe(
+                new Object[] {});
+
+        Float resExpected = null;
+        Float resCalculated = df.min("col2");
+
+        Assertions.assertEquals(resExpected, resCalculated);
+    }
+
+
 }
