@@ -1,5 +1,4 @@
-package Joubert_Mineau_Sauzeau_Sube;
-//package test.java.Joubert_Mineau_Sauzeau_Sube;
+package main.java.Joubert_Mineau_Sauzeau_Sube;
 
 import javax.xml.crypto.Data;
 import java.io.BufferedReader;
@@ -91,12 +90,14 @@ public class Dataframe {
             endlist = false;
             for (Vector<Object> vec : matElements.values()){
                 if(i < vec.size()) {
-                    //TODO traiter le cas ou cell > taille max
-                    System.out.print(vec.get(i));
-                    print_spaces(TAILLE_LARGEUR_COL - vec.get(i).toString().length());//j'adore l'OOP
-                    endlist = true;
+                    if (vec.get(i).toString().length() >= 15 ){System.out.print(vec.get(i).toString().substring(0,13));System.out.print("..");}
+                    else {
+                        System.out.print(vec.get(i));
+                        print_spaces(TAILLE_LARGEUR_COL - vec.get(i).toString().length());
+                    }
+                     endlist = true;
                 }else{
-                    System.out.print("Nan");
+                    System.out.print("NaN");
                     print_spaces(TAILLE_LARGEUR_COL-3);
                 }
             }
@@ -119,10 +120,6 @@ public class Dataframe {
         print_column_names();
         print_lines(0, -1);
     }
-
-    //TODO affichage avec espace aligné
-    // on a une taille limite genre 30; on soustrait la taille du string a afficher et on ajoute le nombre restant d'espaces
-    // si > 30 on met un '.' à la fin
 
     public Vector<Object> getColumn(String columnName){
         return matElements.get(columnName);
