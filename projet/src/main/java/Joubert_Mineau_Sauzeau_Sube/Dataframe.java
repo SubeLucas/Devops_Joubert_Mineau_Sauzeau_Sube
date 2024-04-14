@@ -103,17 +103,31 @@ public class Dataframe {
         HashMap<String, Float> res = new HashMap<>();
 
         for (String key : matElements.keySet()){
-            Vector<Object> vec = matElements.get(key);
-
-            float sum = 0;
-            for (int i = 0; i < vec.size(); i++) {
-                if(!isANumber(vec.get(i)))throw new NotANumberException();
-                sum +=  Float.parseFloat(vec.get(i).toString());
-            }
-            res.put(key,sum);
-
+            Float m = sum(key);
+            if(m != null) res.put(key,m);
         }
         return res;
+    }
+
+    /**
+     *
+     * @return The sum of the chosen column or throws NotANumberException if elements are not Integers, Floats or Doubles
+     */
+    public Float sum(String key) throws NotANumberException {
+
+        if(!matElements.containsKey(key)) return null;
+
+        Vector<Object> vec = matElements.get(key);
+
+        if(vec.isEmpty()) return null;
+
+        float sum = 0;
+        for (int i = 0; i < vec.size(); i++) {
+            if(!isANumber(vec.get(i)))throw new NotANumberException();
+            sum +=  Float.parseFloat(vec.get(i).toString());
+        }
+
+        return sum;
     }
 
     /**
@@ -124,21 +138,34 @@ public class Dataframe {
         HashMap<String, Float> res = new HashMap<>();
 
         for (String key : matElements.keySet()){
-            Vector<Object> vec = matElements.get(key);
-
-            if(vec.isEmpty()){
-                res.put(key,0f);
-
-            }else{
-                float sum = 0;
-                for (int i = 0; i < vec.size(); i++) {
-                    if(!isANumber(vec.get(i)))throw new NotANumberException();
-                    sum +=  Float.parseFloat(vec.get(i).toString());
-                }
-                res.put(key,sum/vec.size());
-            }
+            Float m = mean(key);
+            if(m != null) res.put(key,m);
         }
+
         return res;
+    }
+
+    /**
+     *
+     * @return The mean of the chosen column or throws NotANumberException if elements are not Integers, Floats or Doubles
+     */
+    public Float mean(String key) throws NotANumberException {
+
+        if(!matElements.containsKey(key)) return null;
+
+        Vector<Object> vec = matElements.get(key);
+
+        if(vec.isEmpty()){
+            return null;
+
+        }else{
+            float sum = 0;
+            for (int i = 0; i < vec.size(); i++) {
+                if(!isANumber(vec.get(i)))throw new NotANumberException();
+                sum +=  Float.parseFloat(vec.get(i).toString());
+            }
+            return sum/vec.size();
+        }
     }
 
     /**
@@ -149,22 +176,38 @@ public class Dataframe {
         HashMap<String, Float> res = new HashMap<>();
 
         for (String key : matElements.keySet()){
-            Vector<Object> vec = matElements.get(key);
-
-            if(!vec.isEmpty()){
-
-                if(!isANumber(vec.get(0)))throw new NotANumberException();
-
-                float m = Float.parseFloat(vec.get(0).toString());
-                for (int i = 0; i < vec.size(); i++) {
-                    if(m < Float.parseFloat(vec.get(i).toString())){
-                        m = Float.parseFloat(vec.get(i).toString());
-                    }
-                }
-                res.put(key,m);
-            }
+            Float m = max(key);
+            if(m != null) res.put(key,m);
         }
+
         return res;
+    }
+
+    /**
+     *
+     * @return The max of the chosen column or throws NotANumberException if elements are not Integers, Floats or Doubles
+     */
+    public Float max(String key) throws NotANumberException {
+
+        if(!matElements.containsKey(key)) return null;
+
+        Vector<Object> vec = matElements.get(key);
+
+        if(!vec.isEmpty()){
+
+            if(!isANumber(vec.get(0)))throw new NotANumberException();
+
+            float m = Float.parseFloat(vec.get(0).toString());
+            for (int i = 0; i < vec.size(); i++) {
+                if(m < Float.parseFloat(vec.get(i).toString())){
+                    m = Float.parseFloat(vec.get(i).toString());
+                }
+            }
+
+            return m;
+        }
+
+        return null;
     }
 
     /**
@@ -175,22 +218,36 @@ public class Dataframe {
         HashMap<String, Float> res = new HashMap<>();
 
         for (String key : matElements.keySet()){
-            Vector<Object> vec = matElements.get(key);
-
-            if(!vec.isEmpty()){
-
-                if(!isANumber(vec.get(0)))throw new NotANumberException();
-
-                float m = Float.parseFloat(vec.get(0).toString());
-                for (int i = 0; i < vec.size(); i++) {
-                    if(m > Float.parseFloat(vec.get(i).toString())){
-                        m = Float.parseFloat(vec.get(i).toString());
-                    }
-                }
-                res.put(key,m);
-            }
+            Float m = min(key);
+            if(m != null) res.put(key,m);
         }
         return res;
+    }
+
+    /**
+     *
+     * @return The min of the chosen column or throws NotANumberException if elements are not Integers, Floats or Doubles
+     */
+    public Float min(String key) throws NotANumberException {
+
+        if(!matElements.containsKey(key)) return null;
+
+        Vector<Object> vec = matElements.get(key);
+
+        if(!vec.isEmpty()){
+
+            if(!isANumber(vec.get(0)))throw new NotANumberException();
+
+            float m = Float.parseFloat(vec.get(0).toString());
+            for (int i = 0; i < vec.size(); i++) {
+                if(m > Float.parseFloat(vec.get(i).toString())){
+                    m = Float.parseFloat(vec.get(i).toString());
+                }
+            }
+            return m;
+        }
+
+        return null;
     }
 
 
