@@ -66,4 +66,16 @@ public class DataframeTest
         Assertions.assertTrue(equalsObjectVectors(df.getColumn("c2"), new Vector<>(Arrays.asList(c2))));
         Assertions.assertTrue(equalsObjectVectors(df.getColumn("c3"), new Vector<>(Arrays.asList(c3))));
     }
+
+    @Test
+    public void testGetMultiplesColumns() throws IOException {
+        Dataframe df = new Dataframe("src/test/java/Joubert_Mineau_Sauzeau_Sube/input_test2.txt");
+        Object[] c2 = new Object[] {852, 15, 25, 21};
+        Object[] c4 = new Object[] {852, 52, 65, 952};
+
+        Vector<Vector<Object>> columns = df.getColumns(new String[] {"c2", "c4"});
+
+        Assertions.assertTrue(equalsObjectVectors(columns.get(0), new Vector<>(Arrays.asList(c2))));
+        Assertions.assertTrue(equalsObjectVectors(columns.get(1), new Vector<>(Arrays.asList(c4))));
+    }
 }
