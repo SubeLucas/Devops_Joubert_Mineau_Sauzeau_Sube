@@ -43,7 +43,9 @@ public class DataframeTest
         Object[] column2 = new Object[] {88, 89, 90, 91, 92, 93, 94 };
         Object[] column3 = new Object[] {-1, -2, -3, -4, -5, -6, -7 };
         Dataframe df = new Dataframe(columnNames, column1, column2, column3);
-
+        df.display_lines(2,5);
+        System.out.println();
+        df.display_first_lines();
     }
 
     @Test
@@ -59,11 +61,14 @@ public class DataframeTest
 
         System.out.println();
         df.display_first_lines();
+        System.out.println();
+        df.display_first_lines(2);
     }
 
     @Test
     public void testCreationWithFile1() throws IOException {
         Dataframe df = new Dataframe("src/test/java/Joubert_Mineau_Sauzeau_Sube/input_test1.txt");
+        System.out.println("Affichage fichier :");
         df.display_all_lines();
         Object[] c1 = new Object[] {1, 5, 19, 8412};
         Object[] c2 = new Object[] {2, 9, 502, 5936458};

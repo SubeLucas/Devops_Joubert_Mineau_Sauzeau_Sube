@@ -64,7 +64,7 @@ public class Dataframe {
 
     private void print_column_names(){
         for (String key : matElements.keySet()){
-            if (vec.get(i).toString().length() >= 15 ){System.out.print(vec.get(i).toString().substring(0,13));System.out.print("..");}
+            if (key.toString().length() >= 15 ){System.out.print(key.toString().substring(0,13));System.out.print("..");}
             else{
                 System.out.print(key);
                 print_spaces(TAILLE_LARGEUR_COL - key.length());
@@ -108,6 +108,10 @@ public class Dataframe {
             System.out.println();
         }
 
+    }
+    public void display_lines(int from, int to){
+        print_column_names();
+        print_lines(from, to);
     }
 
     public void display_first_lines(int number_of_lines){
