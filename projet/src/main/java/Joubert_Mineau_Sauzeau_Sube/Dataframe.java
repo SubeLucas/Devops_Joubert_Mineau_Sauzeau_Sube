@@ -1,6 +1,6 @@
 package main.java.Joubert_Mineau_Sauzeau_Sube;
-import main.java.Joubert_Mineau_Sauzeau_Sube.NotANumberException;
 
+import Joubert_Mineau_Sauzeau_Sube.NotANumberException;
 import javax.xml.crypto.Data;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
