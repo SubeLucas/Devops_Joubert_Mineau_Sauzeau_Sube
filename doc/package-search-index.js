@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"main.java.Joubert_Mineau_Sauzeau_Sube"}];updateSearchResults();
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"Joubert_Mineau_Sauzeau_Sube"},{"l":"main.java.Joubert_Mineau_Sauzeau_Sube"}];updateSearchResults();
