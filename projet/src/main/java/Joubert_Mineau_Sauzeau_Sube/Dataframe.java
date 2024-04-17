@@ -82,7 +82,7 @@ public class Dataframe {
 
 
     private void print_column_names(){
-        for (String key : matElements.keySet()){
+        for (String key : keys){
             if (key.toString().length() >= 15 ){System.out.print(key.toString().substring(0,13));System.out.print("..");}
             else{
                 System.out.print(key);
@@ -94,7 +94,8 @@ public class Dataframe {
 
     private int get_size_column_max (){
         int maxi = 0;
-        for(Vector<Object> vec : matElements.values()){
+        for(String key : keys){
+            Vector<Object> vec = matElements.get(key);
             if (vec.size() > maxi) maxi = vec.size();
         }
         return maxi;
@@ -110,7 +111,8 @@ public class Dataframe {
 
         while (endlist && i != to && i < max_size){
             endlist = false;
-            for (Vector<Object> vec : matElements.values()){
+            for(String key : keys){
+                Vector<Object> vec = matElements.get(key);
                 if(i < vec.size()) {
                     if (vec.get(i).toString().length() >= 15 ){System.out.print(vec.get(i).toString().substring(0,13));System.out.print("..");}
                     else {
