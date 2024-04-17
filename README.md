@@ -75,3 +75,8 @@ A chaque push et à chaque PR, les tests automatique sont lancé afin qu'il soit
 *Une partie feedback dans laquelle vous donnerez votre retour d’exp´erience sur les diff´erents outils
 utilis´es durant le projet.*
 
+- Git : Pas de problème particulier, car ayant tous suivis le cours de M1 Devops nous sommes tous des experts Git.
+- Maven : Quelques difficulté à mettre en mettre l'héritage correctement entre le *pom* parent et enfant. 
+- JUnit : boh ça va
+- JavaDoc : Trop chiant mais bon résultat de dingo
+- Jacoco : ça à bien servi 
