@@ -4,33 +4,22 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>Joubert_Mineau_Sauzeau_Sube</groupId>
-    <artifactId>DJMSS3</artifactId>
-    <version>1.0-SNAPSHOT</version>
-    <packaging>pom</packaging>
+    <parent>
+        <groupId>Joubert_Mineau_Sauzeau_Sube</groupId>
+        <artifactId>DJMSS3</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
 
-    <name>Projet DevOps JMSS</name>
-    <url>https://subelucas.github.io/Devops_Joubert_Mineau_Sauzeau_Sube</url>
+    <artifactId>jacoco-config</artifactId>
+    <packaging>jar</packaging>
+
+    <name>JaCoCo Config</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>18</maven.compiler.source>
         <maven.compiler.target>18</maven.compiler.target>
     </properties>
-
-    <modules>
-        <module>projet</module>
-        <module>jacoco-config</module>
-    </modules>
-
-    <dependencies>
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-engine</artifactId>
-            <version>5.8.2</version>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
 
     <build>
         <plugins>
