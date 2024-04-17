@@ -32,7 +32,7 @@ Float sum(String key) : Calculate the sum of the chosen column
 
 Est généré avec :
 ```bash
-javadoc -d doc -sourcepath projet/src/main/java/Joubert_Mineau_Sauzeau_Sube/*.java
+javadoc -d docs -sourcepath projet/src/main/java/Joubert_Mineau_Sauzeau_Sube/*.java
 ```
 Est accessible via :
 https://subelucas.github.io/Devops_Joubert_Mineau_Sauzeau_Sube/
