@@ -5,9 +5,9 @@
 
   <parent>
     <groupId>Joubert_Mineau_Sauzeau_Sube</groupId>
-    <artifactId>DJMSS</artifactId>
+    <artifactId>DJMSS3</artifactId>
     <version>1.0-SNAPSHOT</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
-  <artifactId>DJMSS</artifactId>
+  <artifactId>DJMSS2</artifactId>
 </project>
