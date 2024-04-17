@@ -47,7 +47,7 @@ public class DataframeTest
         Object[] column3 = new Object[] {-1, -2, -3, -4, -5, -6, -7 };
         Dataframe df = new Dataframe(columnNames, column1, column2, column3);
 
-        String fileName = "testWithSeveralColumn.txt";
+        String fileName = input_path + "testWithSeveralColumn.txt";
         try {
             File myObj = new File(fileName);
             myObj.createNewFile();
@@ -67,7 +67,7 @@ public class DataframeTest
         Object[] column1 = new Object[] {1, 2, 3, 4, 5, 6, 7 };
         Object[] column4 = new Object[] {};
         Object[] column2 = new Object[] {1.0, 5.8, 9.2, 1.548521, 4.3, 7.6, 9.54410};
-        Object[] column3 = new Object[] {"Antoine", "Sylvain", "Luca", "Oliver", "Very long string > 30 !!!!!!!!!!!!!!!!!!!!"};
+        Object[] column3 = new Object[] {"Antoine", "Sylvain", "LucaAvecUnS", "Oliver", "Very long string > 30 !!!!!!!!!!!!!!!!!!!!"};
         Dataframe df = new Dataframe(columnNames, column1, column2, column3, column4);
 
 
@@ -80,11 +80,11 @@ public class DataframeTest
 
 
         try {
-            File myObj = new File(fileName);
+            File myObj = new File(input_path + fileName);
             myObj.createNewFile();
-            File myObj2 = new File(fileName2);
+            File myObj2 = new File(input_path + fileName2);
             myObj2.createNewFile();
-            File myObj3 = new File(fileName3);
+            File myObj3 = new File(input_path + fileName3);
             myObj3.createNewFile();
 
         } catch (IOException e) {
@@ -96,9 +96,14 @@ public class DataframeTest
         df.display_first_lines(input_path + fileName2,5);
         df.display_lines(input_path + fileName3,2, 7);
 
+        System.out.println("AA");
         Assertions.assertTrue(sameFiles(input_path + fileName, input_path + fileName_res));
+        System.out.println("A");
         Assertions.assertTrue(sameFiles(input_path + fileName2, input_path + fileName2_res));
+        System.out.println("B");
         Assertions.assertTrue(sameFiles(input_path + fileName3, input_path + fileName3_res));
+        System.out.println("C");
+
 
     }
 
@@ -111,7 +116,7 @@ public class DataframeTest
             String fileName = "testReadPrintAll.txt";
             String fileName_res = "testReadPrintAll_.txt";
 
-            File myObj = new File(fileName);
+            File myObj = new File(input_path + fileName);
             myObj.createNewFile();
 
             df.display_all_lines(input_path + fileName);
