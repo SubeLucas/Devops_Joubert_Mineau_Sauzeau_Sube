@@ -83,7 +83,7 @@ public class Dataframe {
 
     private void print_column_names(){
         for (String key : keys){
-            if (key.toString().length() >= 15 ){System.out.print(key.toString().substring(0,13));System.out.print("..");}
+            if (key.length() >= 15 ){System.out.print(key.substring(0,13));System.out.print("..");}
             else{
                 System.out.print(key);
                 print_spaces(TAILLE_LARGEUR_COL - key.length());
@@ -130,20 +130,36 @@ public class Dataframe {
         }
 
     }
+    /**
+     * Display the content of the dataframe from the first *from*  to the *to* line,
+     * line by line in the same order as they were added to the dataframe. 
+     * @param from : first line to display
+     * @param to : last line to display
+     */
     public void display_lines(int from, int to){
         print_column_names();
         print_lines(from, to);
     }
 
+    /**
+     * Display the first *number_of_lines* lines of the dataframe
+     * @param number_of_lines : How many lines are to be displayed
+     */
     public void display_first_lines(int number_of_lines){
         print_column_names();
         print_lines(0, number_of_lines);
     }
 
+/**
+ * Display the first 5 lines of the dataframe
+ */
     public void display_first_lines(){
         display_first_lines(5);
     }
 
+    /**
+     * Display all the content of the dataframe
+     */
     public void display_all_lines (){
         print_column_names();
         print_lines(0, -1);
