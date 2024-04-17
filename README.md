@@ -57,7 +57,7 @@ mvn clean install
 - JUnit : Pour les tests unitaires, cet outil à été choisis plutot qu'un autre car tout le monde dans le groupe avait de l'expérience avec.
 - JavaDoc : Pour avec une documentation plus propre, plus rapidement.
 - Github action : Pour la mise en place de la pipeline d'intégration continue, compilation et tests automatique. (```.github/workflows/actions.yml```)
-- Jacoco : ???
+- Jacoco : Afin de mesurer la couverture de code.
 
 
 # Workflow git et validation
@@ -78,6 +78,6 @@ utilis´es durant le projet.*
 - Git : Pas de problème particulier, car ayant tous suivis le cours de M1 Devops nous sommes tous des experts Git.
 - Maven : Quelques difficulté à mettre en mettre l'héritage correctement entre le *pom* parent et enfant. 
 - JUnit : Nous n'avons pas rencontrés de problèmes particuliers. Les tests pour l'affichage nous ont néanmoins demandés de changer le code. 
-- JavaDoc : Trop chiant mais bon résultat de dingo
-- Jacoco : ça à bien servi 
+- JavaDoc : Malgré le coté fastidieux à l'utilisation, nous sommes satifait du resultat final.
+- Jacoco : Nous n'avons que peu utilisé la couverture du code pour juger un PR, la couverture était toujours haute car le projet est de petite envergure et nous avons testé toutes les méthodes (qui contiennent peu de branchement).
 
