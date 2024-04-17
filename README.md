@@ -77,6 +77,7 @@ utilis´es durant le projet.*
 
 - Git : Pas de problème particulier, car ayant tous suivis le cours de M1 Devops nous sommes tous des experts Git.
 - Maven : Quelques difficulté à mettre en mettre l'héritage correctement entre le *pom* parent et enfant. 
-- JUnit : boh ça va
+- JUnit : Nous n'avons pas rencontrés de problèmes particuliers. Les tests pour l'affichage nous ont néanmoins demandés de changer le code. 
 - JavaDoc : Trop chiant mais bon résultat de dingo
 - Jacoco : ça à bien servi 
+
