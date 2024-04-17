@@ -2,10 +2,13 @@
 # Features
 
 ## Dataframe
-blabla notre dataframe peux faire des trucs comme :
-	-ça 
-	-ceci
-	-et ça aussi
+Les fonctionnalités de notre librairie permettent de :
+	- Stocker des objets générique Java dans des Dataframe
+	- Créer un Dataframe à partir d'un fichier 
+	- Afficher un Dataframe dans un format lisible dans le terminal
+	- Selectionner/afficher des sous-ensembles d'un Dataframe
+	- Opération arithmétique (min,max,mean)
+	
 
 
 
