@@ -2,10 +2,7 @@ package main.java.Joubert_Mineau_Sauzeau_Sube;
 
 import Joubert_Mineau_Sauzeau_Sube.NotANumberException;
 import javax.xml.crypto.Data;
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.*;
 
 
@@ -141,6 +138,19 @@ public class Dataframe {
         print_lines(from, to);
     }
 
+    public void display_lines(String name, int from, int to){
+        try {
+            PrintStream o = new PrintStream(new File(name));
+            PrintStream console = System.out;
+            System.setOut(o);
+            print_column_names();
+            print_lines(from, to);
+            System.setOut(console);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     /**
      * Display the first *number_of_lines* lines of the dataframe
      * @param number_of_lines : How many lines are to be displayed
@@ -148,6 +158,24 @@ public class Dataframe {
     public void display_first_lines(int number_of_lines){
         print_column_names();
         print_lines(0, number_of_lines);
+    }
+
+    /**
+     * Write in the file *name* the first *number_of_lines* lines of the dataframe
+     * @param number_of_lines : How many lines are to be displayed
+     * @param name : The name of the file we write in
+     */
+    public void display_first_lines(String name, int number_of_lines){
+        try {
+            PrintStream o = new PrintStream(new File(name));
+            PrintStream console = System.out;
+            System.setOut(o);
+            print_column_names();
+            print_lines(0, number_of_lines);
+            System.setOut(console);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 /**
@@ -163,6 +191,23 @@ public class Dataframe {
     public void display_all_lines (){
         print_column_names();
         print_lines(0, -1);
+    }
+
+    /**
+     * Write all of the content of the dataframe in the file *name*
+    * @param name : The name of the file we write in
+     */
+    public void display_all_lines(String name){
+        try {
+            PrintStream o = new PrintStream(new File(name));
+            PrintStream console = System.out;
+            System.setOut(o);
+            print_column_names();
+            print_lines(0, -1);
+            System.setOut(console);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**
