@@ -2,10 +2,7 @@ package main.java.Joubert_Mineau_Sauzeau_Sube;
 
 import Joubert_Mineau_Sauzeau_Sube.NotANumberException;
 import javax.xml.crypto.Data;
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.*;
 
 
@@ -15,6 +12,7 @@ import java.util.*;
 public class Dataframe {
 
     HashMap<String, Vector<Object>> matElements;
+    private static final int TAILLE_LARGEUR_COL = 15 ;
     String[] keys;
 
 
@@ -79,28 +77,136 @@ public class Dataframe {
         }
     }
 
-    /**
-     * Print the content of the Dataframe
-    */
-    public void print(){
-        String tab = "      ";
-        for (String key : matElements.keySet()){System.out.print(key + tab);}
+
+    private void print_column_names(){
+        for (String key : keys){
+            if (key.length() >= 15 ){System.out.print(key.substring(0,13));System.out.print("..");}
+            else{
+                System.out.print(key);
+                print_spaces(TAILLE_LARGEUR_COL - key.length());
+            }
+        }
         System.out.println();
-        int i = 0;
+    }
+
+    private int get_size_column_max (){
+        int maxi = 0;
+        for(String key : keys){
+            Vector<Object> vec = matElements.get(key);
+            if (vec.size() > maxi) maxi = vec.size();
+        }
+        return maxi;
+    }
+
+    private void print_spaces(int nb){
+        for (int i =0; i<nb;i++){System.out.print(' ');}
+    }
+    private void print_lines(int from, int to){
+        int i = from, temp_size;
         boolean endlist = true;
-        while (endlist){
+        int max_size = get_size_column_max();
+
+        while (endlist && i != to && i < max_size){
             endlist = false;
-            for (String key : matElements.keySet()){
+            for(String key : keys){
                 Vector<Object> vec = matElements.get(key);
                 if(i < vec.size()) {
-                    System.out.print(vec.get(i) + tab);
-                    endlist = true;
+                    if (vec.get(i).toString().length() >= 15 ){System.out.print(vec.get(i).toString().substring(0,13));System.out.print("..");}
+                    else {
+                        System.out.print(vec.get(i));
+                        print_spaces(TAILLE_LARGEUR_COL - vec.get(i).toString().length());
+                    }
+                     endlist = true;
                 }else{
-                    System.out.print("Nan" + tab);
+                    System.out.print("NaN");
+                    print_spaces(TAILLE_LARGEUR_COL-3);
                 }
             }
             i++;
             System.out.println();
+        }
+
+    }
+    /**
+     * Display the content of the dataframe from the first *from*  to the *to* line,
+     * line by line in the same order as they were added to the dataframe. 
+     * @param from : first line to display
+     * @param to : last line to display
+     */
+    public void display_lines(int from, int to){
+        print_column_names();
+        print_lines(from, to);
+    }
+
+    public void display_lines(String name, int from, int to){
+        try {
+            PrintStream o = new PrintStream(new File(name));
+            PrintStream console = System.out;
+            System.setOut(o);
+            print_column_names();
+            print_lines(from, to);
+            System.setOut(console);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * Display the first *number_of_lines* lines of the dataframe
+     * @param number_of_lines : How many lines are to be displayed
+     */
+    public void display_first_lines(int number_of_lines){
+        print_column_names();
+        print_lines(0, number_of_lines);
+    }
+
+    /**
+     * Write in the file *name* the first *number_of_lines* lines of the dataframe
+     * @param number_of_lines : How many lines are to be displayed
+     * @param name : The name of the file we write in
+     */
+    public void display_first_lines(String name, int number_of_lines){
+        try {
+            PrintStream o = new PrintStream(new File(name));
+            PrintStream console = System.out;
+            System.setOut(o);
+            print_column_names();
+            print_lines(0, number_of_lines);
+            System.setOut(console);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+/**
+ * Display the first 5 lines of the dataframe
+ */
+    public void display_first_lines(){
+        display_first_lines(5);
+    }
+
+    /**
+     * Display all the content of the dataframe
+     */
+    public void display_all_lines (){
+        print_column_names();
+        print_lines(0, -1);
+    }
+
+    /**
+     * Write all of the content of the dataframe in the file *name*
+    * @param name : The name of the file we write in
+     */
+    public void display_all_lines(String name){
+        try {
+            PrintStream o = new PrintStream(new File(name));
+            PrintStream console = System.out;
+            System.setOut(o);
+            print_column_names();
+            print_lines(0, -1);
+            System.setOut(console);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -157,7 +263,7 @@ public class Dataframe {
     }
 
     /**
-     * Calculate the mean of each column 
+     * Calculate the mean of each column
      * @return The mean of each column or throws NotANumberException if elements are not Integers, Floats or Doubles
      */
     public HashMap<String, Float> mean() throws NotANumberException {
@@ -295,7 +401,7 @@ public class Dataframe {
     /**
      * Select multiple rows using a tab of indexes
      * @return A vector of vector for each row for each index of idxRows
-     * @param  idxRows : int[] contain the index of requested rows 
+     * @param  idxRows : int[] contain the index of requested rows
      */
     public Vector<Vector<Object>> getRows(int[] idxRows) {
         Vector<Vector<Object>> res = new Vector<Vector<Object>>();

@@ -1,0 +1,8 @@
+col1           col2           col3           very long col..
+1              1.0            Antoine        NaN            
+2              5.8            Sylvain        NaN            
+3              9.2            LucaAvecUnS    NaN            
+4              1.548521       Oliver         NaN            
+5              4.3            Very long str..NaN            
+6              7.6            NaN            NaN            
+7              9.5441         NaN            NaN            
